@@ -2,9 +2,14 @@ import { Form, useLoaderData, redirect } from "react-router-dom";
 import { updateContact } from "../contacts";
 
 export async function action({ request, params }) {
-  const formData = await request.formData();
-  const updates = Object.fromEntries(formData);
-  await updateContact(params.contactId, updates);
+  // const formData = await request.formData();
+  // const updates = Object.fromEntries(formData);
+  // await updateContact(params.contactId, updates);
+  // return redirect(`/contacts/${params.contactId}`);
+  const firstName = formData.get("first");
+  const lastName = formData.get("last");
+  updates.first; // "Some"
+  updates.last; //
   return redirect(`/contacts/${params.contactId}`);
 }
 
@@ -18,8 +23,9 @@ export default function EditContact() {
         <input
           placeholder="First"
           aria-label="First name"
-          type="text"
           name="first"
+          type="text"
+          // name="first"
           defaultValue={contact.first}
         />
         <input

@@ -1,5 +1,5 @@
 // import { Outlet } from "react-router-dom";
-import { Outlet, Link, useLoaderData,Form } from "react-router-dom";
+import { Outlet, Link, useLoaderData, Form, redirect } from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
 
 export async function loader() {
@@ -8,9 +8,10 @@ export async function loader() {
 }
 
 export async function action() {
-    const contact = await createContact();
-    return { contact };
-  }
+  const contact = await createContact();
+
+  return redirect(`/contacts/${contact.id}/edit`);
+}
 
 export default function Root() {
   const { contacts } = useLoaderData();
@@ -20,7 +21,6 @@ export default function Root() {
       <div id="sidebar">
         <h1>React Router Contacts</h1>
         <div>
-     
           <form id="search-form" role="search">
             <input
               id="q"
@@ -60,7 +60,6 @@ export default function Root() {
             </p>
           )}
         </nav>
-       
       </div>
       <div id="detail">
         <Outlet />
